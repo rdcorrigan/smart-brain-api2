@@ -5,6 +5,7 @@ const cors = require('cors');
 const knex = require('knex')
 
 const register = require('./controllers/register');
+// import handleRegister from "./controllers/register";
 const signin = require('./controllers/signin');
 const profile = require('./controllers/profile');
 const image = require('./controllers/image');
@@ -12,11 +13,13 @@ const image = require('./controllers/image');
 const db = knex({
   client: 'pg',
   connection: {
-    host : '127.0.0.1',
-    user : 'postgres',
+    connectionString : process.env.DATABASE_URL,
+    ssl : { rejectUnauthorized: false },
+    host : process.env.DATABASE_HOST,
     port : 5432,
-    password : 'test',
-    database : 'smart-brain2'
+    user : process.env.DATABASE_USER,
+    password : process.env.DATABASE_PW,
+    database : process.env.DATABASE_DB
   }
 });
 
